@@ -9,15 +9,15 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: 'https://qauto.forstudy.space/',
+  baseURL: process.env.BASE_URL,
 
-    httpCredentials: {
-      username: process.env.QAUTO_USER!,
-      password: process.env.QAUTO_PASSWORD!,
-    },
-
-    trace: 'on-first-retry',
+  httpCredentials: {
+    username: process.env.QAUTO_USER!,
+    password: process.env.QAUTO_PASSWORD!,
   },
+
+  trace: 'on-first-retry',
+},
 
   projects: [
     {
