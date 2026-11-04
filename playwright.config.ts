@@ -9,20 +9,25 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-  baseURL: process.env.BASE_URL,
+    baseURL: process.env.BASE_URL,
 
-  httpCredentials: {
-    username: process.env.QAUTO_USER!,
-    password: process.env.QAUTO_PASSWORD!,
+    httpCredentials: {
+      username: process.env.QAUTO_USER!,
+      password: process.env.QAUTO_PASSWORD!,
+    },
+
+    trace: 'on-first-retry',
   },
-
-  trace: 'on-first-retry',
-},
 
   projects: [
     {
+      name: 'setup',
+      testMatch: /.*\.setup\.ts/,
+    },
+    {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      dependencies: ['setup'],
     },
   ],
 });
